@@ -149,8 +149,8 @@ async function attemptPlace() {
 		setTimeout(attemptPlace, waitFor);
 	}
 
-	if	(foundPixel) {
-		console.log( `${wrongCount} sind noch falsch`)
+	if (foundPixel) {
+		console.log(`${wrongCount} sind noch falsch`)
 		return
 	}
 
@@ -162,7 +162,7 @@ async function attemptPlace() {
 }
 
 function updateOrders() {
-	fetch(`https://placede.github.io/pixel/pixel.json`, {cache: "no-store"}).then(async (response) => {
+	fetch(`https://raw.githubusercontent.com/Gugubo/place-taskbar-bot/main/pixel.json`, { cache: "no-store" }).then(async (response) => {
 		if (!response.ok) return console.warn('Bestellungen können nicht geladen werden!');
 		const data = await response.json();
 
@@ -181,11 +181,11 @@ function updateOrders() {
 		if (data?.version !== VERSION && !UPDATE_PENDING) {
 			UPDATE_PENDING = true
 			Toastify({
-				text: `NEUE VERSION VERFÜGBAR! Aktualisiere hier https://github.com/placeDE/Bot/raw/main/placedebot.user.js`,
+				text: `NEUE VERSION VERFÜGBAR! Aktualisiere hier https://github.com/Gugubo/place-taskbar-bot`,
 				duration: -1,
 				onClick: () => {
 					// Tapermonkey captures this and opens a new tab
-					window.location = 'https://github.com/placeDE/Bot/raw/main/placedebot.user.js'
+					window.location = 'https://raw.githubusercontent.com/Gugubo/place-taskbar-bot/main/placetaskbar.js'
 				}
 			}).showToast();
 
