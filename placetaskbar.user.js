@@ -58,12 +58,12 @@ const COLOR_MAPPINGS = {
 	canvas = document.body.appendChild(canvas);
 
 	Toastify({
-		text: 'Abfrage des Zugriffstokens...',
+		text: 'Checking access token...',
 		duration: 10000
 	}).showToast();
 	accessToken = await getAccessToken();
 	Toastify({
-		text: 'Zugriffstoken eingesammelt!',
+		text: 'Got access token!',
 		duration: 10000
 	}).showToast();
 
@@ -95,9 +95,9 @@ async function attemptPlace() {
 		ctx = await getCanvasFromUrl(await getCurrentImageUrl('0'), canvas, 0, 0);
 		ctx = await getCanvasFromUrl(await getCurrentImageUrl('1'), canvas, 1000, 0)
 	} catch (e) {
-		console.warn('Fehler beim Abrufen der Zeichenfläche:', e);
+		console.warn('Error accessing canvas:', e);
 		Toastify({
-			text: 'Fehler beim Abrufen der Zeichenfläche. Neuer Versuch in 15 Sekunden...',
+			text: 'Error accessing canvas. Trying again in 15 seconds...',
 			duration: 10000
 		}).showToast();
 		setTimeout(attemptPlace, 15000); // probeer opnieuw in 15sec.
@@ -125,7 +125,7 @@ async function attemptPlace() {
 		foundPixel = true;
 
 		Toastify({
-			text: `Pixel wird gesetzt auf ${x}, ${y}...`,
+			text: `Placing pixel at ${x}, ${y}...`,
 			duration: 10000
 		}).showToast();
 
@@ -143,19 +143,19 @@ async function attemptPlace() {
 		const minutes = Math.floor(waitFor / (1000 * 60))
 		const seconds = Math.floor((waitFor / 1000) % 60)
 		Toastify({
-			text: `Warten auf Abkühlzeit ${minutes}:${seconds} bis ${new Date(nextAvailablePixelTimestamp).toLocaleTimeString()}`,
+			text: `Waiting for cooldown ${minutes}:${seconds} until ${new Date(nextAvailablePixelTimestamp).toLocaleTimeString()}`,
 			duration: waitFor
 		}).showToast();
 		setTimeout(attemptPlace, waitFor);
 	}
 
 	if (foundPixel) {
-		console.log(`${wrongCount} sind noch falsch`)
+		console.log(`${wrongCount} are mismatched`)
 		return
 	}
 
 	Toastify({
-		text: 'Alle bestellten Pixel haben bereits die richtige Farbe!',
+		text: 'All pixels correct!',
 		duration: 10000
 	}).showToast();
 	setTimeout(attemptPlace, 30000); // probeer opnieuw in 30sec.
@@ -163,7 +163,7 @@ async function attemptPlace() {
 
 function updateOrders() {
 	fetch(`https://raw.githubusercontent.com/Gugubo/place-taskbar-bot/main/pixel.json`, { cache: "no-store" }).then(async (response) => {
-		if (!response.ok) return console.warn('Bestellungen können nicht geladen werden!');
+		if (!response.ok) return console.warn('Could not load orders!');
 		const data = await response.json();
 
 		if (JSON.stringify(data) !== JSON.stringify(placeOrders)) {
@@ -173,7 +173,7 @@ function updateOrders() {
 				pixelCount += data.structures[structureName].pixels.length;
 			}
 			Toastify({
-				text: `Neue Strukturen geladen. Bilder: ${structureCount} - Pixels: ${pixelCount}.`,
+				text: `New structures loaded. Structures: ${structureCount} - Pixel: ${pixelCount}.`,
 				duration: 10000
 			}).showToast();
 		}
@@ -181,7 +181,7 @@ function updateOrders() {
 		if (data?.version !== VERSION && !UPDATE_PENDING) {
 			UPDATE_PENDING = true
 			Toastify({
-				text: `NEUE VERSION VERFÜGBAR! Aktualisiere hier https://github.com/Gugubo/place-taskbar-bot`,
+				text: `NEW VERSION AVAILABLE! Update here: https://github.com/Gugubo/place-taskbar-bot`,
 				duration: -1,
 				onClick: () => {
 					// Tapermonkey captures this and opens a new tab
@@ -191,7 +191,7 @@ function updateOrders() {
 
 		}
 		placeOrders = data;
-	}).catch((e) => console.warn('Bestellungen können nicht geladen werden!', e));
+	}).catch((e) => console.warn('Could not load orders!', e));
 }
 
 /**
@@ -255,7 +255,7 @@ async function place(x, y, color) {
 	const data = await response.json()
 	if (data.errors != undefined) {
 		Toastify({
-			text: 'Fehler beim Platzieren des Pixels, warte auf Abkühlzeit...',
+			text: 'Error placing pixel, waiting for cooldown...',
 			duration: 10000
 		}).showToast();
 		return data.errors[0].extensions?.nextAvailablePixelTs
