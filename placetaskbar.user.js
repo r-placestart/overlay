@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         PlaceDE Bot
-// @namespace    https://github.com/PlaceDE/Bot
+// @name         PlaceTaskbar Bot
+// @namespace    https://github.com/Gugubo/place-taskbar-bot
 // @version      13
 // @description  /r/place bot
 // @author       NoahvdAa, reckter, SgtChrome, nama17
@@ -9,8 +9,8 @@
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=reddit.com
 // @require	     https://cdn.jsdelivr.net/npm/toastify-js
 // @resource     TOASTIFY_CSS https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css
-// @updateURL    https://github.com/PlaceDE/Bot/raw/main/placedebot.user.js
-// @downloadURL  https://github.com/PlaceDE/Bot/raw/main/placedebot.user.js
+// @updateURL    https://github.com/Gugubo/place-taskbar-bot/raw/main/placetaskbar.user.js
+// @downloadURL  https://github.com/Gugubo/place-taskbar-bot/raw/main/placetaskbar.user.js
 // @grant        GM_getResourceText
 // @grant        GM_addStyle
 // ==/UserScript==
@@ -185,7 +185,7 @@ function updateOrders() {
 				duration: -1,
 				onClick: () => {
 					// Tapermonkey captures this and opens a new tab
-					window.location = 'https://raw.githubusercontent.com/Gugubo/place-taskbar-bot/main/placetaskbar.js'
+					window.location = 'https://github.com/Gugubo/place-taskbar-bot/raw/main/placetaskbar.user.js'
 				}
 			}).showToast();
 
