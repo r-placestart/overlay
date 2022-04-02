@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         PlaceTaskbar Bot
 // @namespace    https://github.com/Gugubo/place-taskbar-bot
-// @version      13
+// @version      14
 // @description  /r/place bot
-// @author       NoahvdAa, reckter, SgtChrome, nama17
+// @author       NoahvdAa, reckter, SgtChrome, nama17, Gugubo
 // @match        https://www.reddit.com/r/place/*
 // @match        https://new.reddit.com/r/place/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=reddit.com
