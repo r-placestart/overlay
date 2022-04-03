@@ -12,7 +12,7 @@ if (window.top !== window.self) {
     window.addEventListener('load', () => {
         // Load the image
         const image = document.createElement("img");
-        image.src = "https://raw.githubusercontent.com/portalthree/tweetch2/master/!dotted_Sprite-0004-export.png";
+        image.src = "https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/overlay_dotted.png";
         image.onload = () => {
             image.style = `position: absolute; left: 0; top: 0; width: ${image.width/3}px; height: ${image.height/3}px; image-rendering: pixelated; z-index: 1`;
         };
