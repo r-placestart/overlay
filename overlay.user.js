@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         r/placestart logo template
-// @namespace    https://github.com/portalthree/place-taskbar-bot
+// @namespace    https://github.com/r-placestart/overlay/
 // @version      1
 // @description  r/placestart logo template
 // @author       portalthree
@@ -13,17 +13,15 @@
 // @resource     TOASTIFY_CSS https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css
 // @grant        GM_getResourceText
 // @grant        GM_addStyle
-// @updateURL    https://github.com/portalthree/place-taskbar-bot/raw/main/overlay.user.js
-// @downloadURL  https://github.com/portalthree/place-taskbar-bot/raw/main/overlay.user.js
 // ==/UserScript==
 
 // credit to the osu! logo script
 
 const VERSION = "1";
 
-const updateURL = "https://github.com/portalthree/place-taskbar-bot/raw/main/overlay.user.js";
-const imageLink = "https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/!dotted_overlay.png";
-const versionLink = "https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/version.json";
+const updateURL = "https://github.com/r-placestart/overlay/raw/main/overlay.user.js";
+const imageLink = "https://raw.githubusercontent.com/r-placestart/overlay/main/overlay.png";
+const versionLink = "https://raw.githubusercontent.com/r-placestart/overlay/main/version.json";
 
 var NOTIFIED = false;
 
