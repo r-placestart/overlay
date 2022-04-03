@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         r/placestart logo template
 // @namespace    https://github.com/r-placestart/overlay/
-// @version      6
+// @version      7
 // @description  r/placestart logo template
 // @author       portalthree
 // @match        https://hot-potato.reddit.com/embed*
@@ -19,10 +19,10 @@
 
 
 //TODO: When changing the version, please do change the version in the userscript information as well as the version in version.json
-const VERSION = "6";
+const VERSION = "7";
 
 const updateURL = "https://github.com/r-placestart/overlay/raw/main/overlay.user.js";
-const overlayLink = "https://raw.githubusercontent.com/r-placestart/overlay/main/dotted_overlay.png";
+const overlayLink = "https://raw.githubusercontent.com/r-placestart/overlay/main/overlay.png";
 const versionLink = "https://raw.githubusercontent.com/r-placestart/overlay/main/version.json";
 
 var NOTIFIED = false;
