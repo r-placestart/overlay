@@ -4,6 +4,7 @@
 // @version      1
 // @description  r/placestart logo template
 // @author       portalthree
+// @match        https://hot-potato.reddit.com/embed*
 // @match        https://www.reddit.com/r/place/*
 // @match        https://new.reddit.com/r/place/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=reddit.com
