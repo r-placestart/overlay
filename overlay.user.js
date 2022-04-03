@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         r/placestart logo template
 // @namespace    https://github.com/portalthree/place-taskbar-bot
-// @version      1
+// @version      2
 // @description  r/placestart logo template
 // @author       portalthree
 // @match        https://hot-potato.reddit.com/embed*
@@ -22,7 +22,7 @@
 
 const updateURL = "https://github.com/portalthree/place-taskbar-bot/raw/main/overlay.user.js";
 
-const VERSION = "1";
+const VERSION = "2";
 
 const imageLink = "https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/!dotted_overlay.png";
 
@@ -30,6 +30,13 @@ const imageLink = "https://raw.githubusercontent.com/portalthree/place-taskbar-b
 
     GM_addStyle(GM_getResourceText('TOASTIFY_CSS'));
     Toast("Thanks for contributing to r/placestart!", 10000)
+    Toastify({
+        text: `Join our discord! https://discord.gg/sGCpCsjA45`,
+        duration: -1,
+        onClick: () => {
+            window.location = "https://discord.gg/sGCpCsjA45";
+        }
+    }).showToast();
 
     if (window.top !== window.self) {    
         window.addEventListener('load', () => {
