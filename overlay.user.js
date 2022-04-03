@@ -26,6 +26,8 @@ const VERSION = "2";
 
 const imageLink = "https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/!dotted_overlay.png";
 
+var NEEDS_UPDATE = false;
+
 (async function () {
 
     GM_addStyle(GM_getResourceText('TOASTIFY_CSS'));
@@ -81,8 +83,9 @@ function checkForUpdates(){
     fetch(`https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/version.json`, { cache: "no-store" }).then(async (response) => {
         if (!response.ok) return console.warn('Failed to fetch version.json');
         const data = await response.json();
+        NEEDS_UPDATE = true;
 
-        if (data?.version !== VERSION) {
+        if (data?.version !== VERSION && NEEDS_UPDATE) {
             Toastify({
                 text: `NEW VERSION AVAILABLE! Update here: https://github.com/portalthree/place-taskbar-bot`,
                 duration: -1,
@@ -92,6 +95,7 @@ function checkForUpdates(){
             }).showToast();
 
         } else {
+            NEEDS_UPDATE = false;
             console.log("No update found!");
         }
     }).catch((e) => console.warn('Error!', e));
