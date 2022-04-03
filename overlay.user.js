@@ -94,11 +94,9 @@ function requiresUpdate(){
             window.location = updateURL;
         }
     })
+    
+    toastUpdate.showToast();
 
-    if(!NOTIFIED){
-        toastUpdate.showToast();
-        NOTIFIED = true;
-    }
 }
 
 function startNotify(){
