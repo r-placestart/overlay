@@ -1,9 +1,3 @@
-# Important
-
-This bot is not placing a taskbar at the moment and is still in testing phase!
-For more info join our [subreddit](https://www.reddit.com/r/placestart/) and our [discord](https://discord.gg/eDUuJYhjZY).
-
-
 # Place-taskbar-bot
 
 This bot is based on [placeDE's bot](https://github.com/placeDE/Bot).
