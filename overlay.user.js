@@ -102,7 +102,7 @@ function requiresUpdate(){
 function startNotify(){
     if(!START_NOTIFIED){
         Toastify({
-            text: `Thanks for contributing to r/placestart! (click on here to join our discord)`,
+            text: `Thanks for contributing to r/placestart! (click here to join our discord)`,
             duration: SECOND * 10,
             onClick: () => {
                 window.location = "https://discord.gg/sGCpCsjA45";
