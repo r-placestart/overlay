@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         r/placestart logo template
 // @namespace    https://github.com/r-placestart/overlay/
-// @version      1
+// @version      2
 // @description  r/placestart logo template
 // @author       portalthree
 // @match        https://hot-potato.reddit.com/embed*
@@ -19,28 +19,22 @@
 
 
 //TODO: When changing the version, please do change the version in the userscript information as well as the version in version.json
-const VERSION = "1";
+const VERSION = "2";
 
 const updateURL = "https://github.com/r-placestart/overlay/raw/main/overlay.user.js";
 const overlayLink = "https://raw.githubusercontent.com/r-placestart/overlay/main/overlay.png";
 const versionLink = "https://raw.githubusercontent.com/r-placestart/overlay/main/version.json";
 
 var NOTIFIED = false;
+var START_NOTIFIED = false;
 
 var SECOND = 1000;
 var MINUTE = 60 * SECOND;
 
+
 (async function () {
 
     GM_addStyle(GM_getResourceText('TOASTIFY_CSS'));
-    Toastify({
-        text: `Join our discord! https://discord.gg/sGCpCsjA45`,
-        duration: SECOND * 10,
-        onClick: () => {
-            window.location = "https://discord.gg/sGCpCsjA45";
-        }
-    }).showToast();
-    Toast("Thanks for contributing to r/placestart!", SECOND * 10)
 
     if (window.top !== window.self) {    
         window.addEventListener('load', () => {
@@ -68,6 +62,8 @@ var MINUTE = 60 * SECOND;
         }, false);
     }
 
+   startNotify();
+
    setInterval(checkForUpdates, SECOND * 25);
    setInterval(refreshPage, MINUTE * 15)
 })();
@@ -89,11 +85,11 @@ function checkForUpdates(){
     }).catch((e) => console.warn('Error!', e));
 }
 
-// function that lets the user know that it needs an update
 function requiresUpdate(){
     var toastUpdate = Toastify({
         text: "Update available! Click here to update!",
         duration: -1,
+        position: "center",
         onClick: () => {
             window.location = updateURL;
         }
@@ -105,16 +101,21 @@ function requiresUpdate(){
     }
 }
 
+function startNotify(){
+    if(!START_NOTIFIED){
+        Toastify({
+            text: `Thanks for contributing to r/placestart! (click on here to join our discord)`,
+            duration: SECOND * 10,
+            onClick: () => {
+                window.location = "https://discord.gg/sGCpCsjA45";
+            }
+        }).showToast();
+
+        START_NOTIFIED = true;
+    }
+}
+
 // Refreshs page every 5 minutes
 function refreshPage(){
     location.reload()
-}
-
-function Toast(text, duration) {
-    console.log("Got a Toastify job: " + text);
-
-    Toastify({
-        text: text,
-        duration: duration
-    }).showToast();
 }
