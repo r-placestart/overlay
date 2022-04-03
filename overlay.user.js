@@ -76,7 +76,6 @@ function Toast(text, duration) {
     }).showToast();
 }
 
-/*
 function checkForUpdates(){
     console.log("Checking for updates...");
     fetch(`https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/version.json`, { cache: "no-store" }).then(async (response) => {
@@ -97,4 +96,3 @@ function checkForUpdates(){
         }
     }).catch((e) => console.warn('Error!', e));
 }
-*/
