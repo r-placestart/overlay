@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         r/placestart logo template
 // @namespace    https://github.com/portalthree/place-taskbar-bot
-// @version      2
+// @version      1
 // @description  r/placestart logo template
 // @author       portalthree
 // @match        https://hot-potato.reddit.com/embed*
 // @match        https://www.reddit.com/r/place/*
 // @match        https://new.reddit.com/r/place/*
+// @match        https://localhost/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=reddit.com
 // @require	     https://cdn.jsdelivr.net/npm/toastify-js
 // @resource     TOASTIFY_CSS https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css
@@ -21,7 +22,7 @@
 
 const updateURL = "https://github.com/portalthree/place-taskbar-bot/raw/main/overlay.user.js";
 
-const VERSION = "2";
+const VERSION = "1";
 
 const imageLink = "https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/overlay_dotted.png";
 
@@ -56,7 +57,7 @@ const imageLink = "https://raw.githubusercontent.com/portalthree/place-taskbar-b
         }, false);
     }
 
-    setInterval(checkForUpdates, 1000);
+    setInterval(checkForUpdates, 60 * 50);
 })();
 
 function Toast(text, duration) {
@@ -72,7 +73,7 @@ function Toast(text, duration) {
 function checkForUpdates(){
     console.log("Checking for updates...");
     fetch(`https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/version.json`, { cache: "no-store" }).then(async (response) => {
-        if (!response.ok) return console.warn('Could not load orders!');
+        if (!response.ok) return console.warn('Failed to fetch version.json');
         const data = await response.json();
 
         if (data?.version !== VERSION) {
@@ -87,5 +88,5 @@ function checkForUpdates(){
         } else {
             console.log("No update found!");
         }
-    }).catch((e) => console.warn('Could not load orders!', e));
+    }).catch((e) => console.warn('Error!', e));
 }
