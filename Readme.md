@@ -1,4 +1,4 @@
-#Important
+# Important
 
 This bot is not placing a taskbar at the moment and is still in testing phase!
 For more info join our [subreddit](https://www.reddit.com/r/placestart/) and our [discord](https://discord.gg/eDUuJYhjZY).
