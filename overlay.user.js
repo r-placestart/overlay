@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         osu! Logo template
+// @name         r/placestart logo template
 // @namespace    http://tampermonkey.net/
-// @version      0.3
-// @description  try to take over the canvas!
-// @author       oralekin, LittleEndu, ekgame
+// @version      1
+// @description  r/placestart logo template
+// @author       oralekin, LittleEndu, ekgame, portalthree
 // @match        https://hot-potato.reddit.com/embed*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=reddit.com
 // @grant        none
