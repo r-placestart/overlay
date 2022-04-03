@@ -44,7 +44,7 @@ const imageLink = "https://raw.githubusercontent.com/portalthree/place-taskbar-b
                 const image = document.createElement("img");
                 image.src = imageLink;
                 image.onload = () => {
-                    image.style = `position: absolute; left: 0; top: 0; width: ${image.width/3}px; height: ${image.height/3}px; image-rendering: pixelated; z-index: 1`;
+                    image.style = `position: absolute; left: 0; top: 0; width: 2000px; height: 2000px; image-rendering: pixelated; z-index: 1`;
                 };
         
                 // Add the image as overlay
