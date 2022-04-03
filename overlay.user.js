@@ -22,7 +22,7 @@
 
 const updateURL = "https://github.com/portalthree/place-taskbar-bot/raw/main/overlay.user.js";
 
-const VERSION = "2";
+const VERSION = "3";
 
 const imageLink = "https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/!dotted_overlay.png";
 
@@ -66,7 +66,7 @@ var NEEDS_UPDATE = false;
         }, false);
     }
 
-   // setInterval(checkForUpdates, 60 * 50);
+   //setInterval(checkForUpdates, 1000);
 })();
 
 function Toast(text, duration) {
@@ -78,14 +78,15 @@ function Toast(text, duration) {
     }).showToast();
 }
 
+/*
 function checkForUpdates(){
     console.log("Checking for updates...");
     fetch(`https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/version.json`, { cache: "no-store" }).then(async (response) => {
         if (!response.ok) return console.warn('Failed to fetch version.json');
         const data = await response.json();
-        NEEDS_UPDATE = true;
 
         if (data?.version !== VERSION && NEEDS_UPDATE) {
+            NEEDS_UPDATE = true;
             Toastify({
                 text: `NEW VERSION AVAILABLE! Update here: https://github.com/portalthree/place-taskbar-bot`,
                 duration: -1,
@@ -100,3 +101,4 @@ function checkForUpdates(){
         }
     }).catch((e) => console.warn('Error!', e));
 }
+*/
