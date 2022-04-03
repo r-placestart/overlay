@@ -31,7 +31,6 @@ var MINUTE = 60 * SECOND;
 (async function () {
 
     GM_addStyle(GM_getResourceText('TOASTIFY_CSS'));
-    Toast("Thanks for contributing to r/placestart!", SECOND * 10)
     Toastify({
         text: `Join our discord! https://discord.gg/sGCpCsjA45`,
         duration: SECOND * 10,
@@ -39,6 +38,7 @@ var MINUTE = 60 * SECOND;
             window.location = "https://discord.gg/sGCpCsjA45";
         }
     }).showToast();
+    Toast("Thanks for contributing to r/placestart!", SECOND * 10)
 
     if (window.top !== window.self) {    
         window.addEventListener('load', () => {
