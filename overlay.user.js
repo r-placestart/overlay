@@ -64,7 +64,7 @@ var MINUTE = 60 * SECOND;
 
    startNotify();
 
-   setInterval(checkForUpdates, SECOND * 25);
+   setInterval(checkForUpdates, SECOND * 15);
    setInterval(refreshPage, MINUTE * 15)
 })();
 
