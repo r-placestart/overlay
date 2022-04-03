@@ -20,76 +20,70 @@
 
 
 const updateURL = "https://github.com/portalthree/place-taskbar-bot/raw/main/overlay.user.js";
+
 const VERSION = "1";
-var UPDATE_PENDING = false;
 
-if (window.top !== window.self) {
+(async function () {
 
-	GM_addStyle(GM_getResourceText('TOASTIFY_CSS'));
+    GM_addStyle(GM_getResourceText('TOASTIFY_CSS'));
+    Toast("Thanks for contributing to r/placestart!", 10000)
 
-    Toastify({
-        text: 'Thank you for contributing to r/placestart!',
-        duration: 10000
-    }).showToast();
-
-    window.addEventListener('load', () => {
-        // Load the image
-        const image = document.createElement("img");
-        image.src = "https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/overlay_dotted.png";
-        image.onload = () => {
-            image.style = `position: absolute; left: 0; top: 0; width: ${image.width/3}px; height: ${image.height/3}px; image-rendering: pixelated; z-index: 1`;
-        };
-
-        // Add the image as overlay
-        const camera = document.querySelector("mona-lisa-embed").shadowRoot.querySelector("mona-lisa-camera");
-        const canvas = camera.querySelector("mona-lisa-canvas");
-        canvas.shadowRoot.querySelector('.container').appendChild(image);
-
-        // Add a style to put a hole in the pixel preview (to see the current or desired color)
-        const waitForPreview = setInterval(() => {
-            const preview = camera.querySelector("mona-lisa-pixel-preview");
-            if (preview) {
-              clearInterval(waitForPreview);
-              const style = document.createElement('style')
-              style.innerHTML = '.pixel { clip-path: polygon(-20% -20%, -20% 120%, 37% 120%, 37% 37%, 62% 37%, 62% 62%, 37% 62%, 37% 120%, 120% 120%, 120% -20%); }'
-              preview.shadowRoot.appendChild(style);
-            }
-        }, 100);
-    }, false);
+    if (window.top !== window.self) {    
+        window.addEventListener('load', () => {
+            // Load the image
+            const image = document.createElement("img");
+            image.src = "https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/overlay_dotted.png";
+            image.onload = () => {
+                image.style = `position: absolute; left: 0; top: 0; width: ${image.width/3}px; height: ${image.height/3}px; image-rendering: pixelated; z-index: 1`;
+            };
+    
+            // Add the image as overlay
+            const camera = document.querySelector("mona-lisa-embed").shadowRoot.querySelector("mona-lisa-camera");
+            const canvas = camera.querySelector("mona-lisa-canvas");
+            canvas.shadowRoot.querySelector('.container').appendChild(image);
+    
+            // Add a style to put a hole in the pixel preview (to see the current or desired color)
+            const waitForPreview = setInterval(() => {
+                const preview = camera.querySelector("mona-lisa-pixel-preview");
+                if (preview) {
+                  clearInterval(waitForPreview);
+                  const style = document.createElement('style')
+                  style.innerHTML = '.pixel { clip-path: polygon(-20% -20%, -20% 120%, 37% 120%, 37% 37%, 62% 37%, 62% 62%, 37% 62%, 37% 120%, 120% 120%, 120% -20%); }'
+                  preview.shadowRoot.appendChild(style);
+                }
+            }, 100);
+        }, false);
+    }
 
     setInterval(checkForUpdates, 5 * 60 * 1000);
-	await checkForUpdates();
+})();
+
+function Toast(text, duration) {
+    console.log("Got a Toastify job: " + text);
+
+    Toastify({
+        text: text,
+        duration: duration
+    }).showToast();
 }
 
+
 function checkForUpdates(){
-	fetch(`https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/version.json`, { cache: "no-store" }).then(async (response) => {
-		if (!response.ok) return console.warn('Could not load orders!');
-		const data = await response.json();
+    Toast("Checking for updates...", 10000);
+    fetch(`https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/version.json`, { cache: "no-store" }).then(async (response) => {
+        if (!response.ok) return console.warn('Could not load orders!');
+        const data = await response.json();
 
-		if (JSON.stringify(data) !== JSON.stringify(placeOrders)) {
-			const structureCount = Object.keys(data.structures).length;
-			let pixelCount = 0;
-			for (const structureName in data.structures) {
-				pixelCount += data.structures[structureName].pixels.length;
-			}
-			Toastify({
-				text: `New structures loaded. Structures: ${structureCount} - Pixel: ${pixelCount}.`,
-				duration: 10000
-			}).showToast();
-		}
+        if (data?.version !== VERSION) {
+            Toastify({
+                text: `NEW VERSION AVAILABLE! Update here: https://github.com/portalthree/place-taskbar-bot`,
+                duration: -1,
+                onClick: () => {
+                    window.location = updateURL;
+                }
+            }).showToast();
 
-		if (data?.version !== VERSION && !UPDATE_PENDING) {
-			UPDATE_PENDING = true
-			Toastify({
-				text: `NEW VERSION AVAILABLE! Update here: https://github.com/portalthree/place-taskbar-bot`,
-				duration: -1,
-				onClick: () => {
-					// Tapermonkey captures this and opens a new tab
-					window.location = 'https://github.com/portalthree/place-taskbar-bot/raw/main/overlay.user.js'
-				}
-			}).showToast();
-
-		}
-		placeOrders = data;
-	}).catch((e) => console.warn('Could not load orders!', e));
+        }
+        placeOrders = data;
+    }).catch((e) => console.warn('Could not load orders!', e));
 }
