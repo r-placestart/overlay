@@ -65,7 +65,6 @@ var MINUTE = 60 * SECOND;
    startNotify();
 
    setInterval(checkForUpdates, SECOND * 10);
-   setInterval(refreshPage, MINUTE * 15)
 })();
 
 // Checks for an update every 1 minute
@@ -127,9 +126,4 @@ function startNotify(){
 
         START_NOTIFIED = true;
     }
-}
-
-// Refreshs page every 5 minutes
-function refreshPage(){
-    location.reload()
 }
