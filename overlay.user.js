@@ -17,10 +17,12 @@
 
 // credit to the osu! logo script
 
+
+//TODO: When changing the version, please do change the version in the userscript information as well as the version in version.json
 const VERSION = "1";
 
 const updateURL = "https://github.com/r-placestart/overlay/raw/main/overlay.user.js";
-const imageLink = "https://raw.githubusercontent.com/r-placestart/overlay/main/overlay.png";
+const overlayLink = "https://raw.githubusercontent.com/r-placestart/overlay/main/overlay.png";
 const versionLink = "https://raw.githubusercontent.com/r-placestart/overlay/main/version.json";
 
 var NOTIFIED = false;
@@ -44,7 +46,7 @@ var MINUTE = 60 * SECOND;
         window.addEventListener('load', () => {
             // Load the image
                 const image = document.createElement("img");
-                image.src = imageLink;
+                image.src = overlayLink;
                 image.onload = () => {
                     image.style = `position: absolute; left: 0; top: 0; width: 2000px; height: 2000px; image-rendering: pixelated; z-index: 1`;
                 };
