@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         r/placestart logo template
 // @namespace    https://github.com/r-placestart/overlay/
-// @version      4
+// @version      5
 // @description  r/placestart logo template
 // @author       portalthree
 // @match        https://hot-potato.reddit.com/embed*
@@ -19,7 +19,7 @@
 
 
 //TODO: When changing the version, please do change the version in the userscript information as well as the version in version.json
-const VERSION = "4";
+const VERSION = "5";
 
 const updateURL = "https://github.com/r-placestart/overlay/raw/main/overlay.user.js";
 const overlayLink = "https://raw.githubusercontent.com/r-placestart/overlay/main/dotted_overlay.png";
@@ -64,14 +64,25 @@ var MINUTE = 60 * SECOND;
 
    startNotify();
 
-   setInterval(checkForUpdates, SECOND * 15);
+   setInterval(checkForUpdates, SECOND * 10);
    setInterval(refreshPage, MINUTE * 15)
 })();
 
 // Checks for an update every 1 minute
 function checkForUpdates(){
     console.log("Checking for updates...");
-    fetch(versionLink, { cache: "no-store" }).then(async (response) => {
+
+    var cacheHeaders = new Headers();
+    cacheHeaders.append('pragma', 'no-cache');
+    cacheHeaders.append('cache-control', 'no-cache');
+
+    var initRequest = {
+        method: 'GET',
+        headers: cacheHeaders,
+      };
+      
+
+    fetch(versionLink, initRequest).then(async (response) => {
         const data = await response.json();
 
         if(!response.ok){
