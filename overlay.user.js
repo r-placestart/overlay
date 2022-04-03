@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         r/placestart logo template
 // @namespace    https://github.com/r-placestart/overlay/
-// @version      5
+// @version      6
 // @description  r/placestart logo template
 // @author       portalthree
 // @match        https://hot-potato.reddit.com/embed*
@@ -19,7 +19,7 @@
 
 
 //TODO: When changing the version, please do change the version in the userscript information as well as the version in version.json
-const VERSION = "5";
+const VERSION = "6";
 
 const updateURL = "https://github.com/r-placestart/overlay/raw/main/overlay.user.js";
 const overlayLink = "https://raw.githubusercontent.com/r-placestart/overlay/main/dotted_overlay.png";
@@ -70,7 +70,7 @@ var MINUTE = 60 * SECOND;
 
 // Checks for an update every 1 minute
 function checkForUpdates(){
-    console.log("Checking for updates...");
+    LOG("Checking for updates...");
 
     var cacheHeaders = new Headers();
     cacheHeaders.append('pragma', 'no-cache');
@@ -84,16 +84,21 @@ function checkForUpdates(){
 
     fetch(versionLink, initRequest).then(async (response) => {
         const data = await response.json();
+        LOG("Latest verion is : " + data.version);
 
         if(!response.ok){
             return console.error("Failed to fetch version.json: " + response.statusText);
         } else {
-            console.log("Latest version: " + data.version)
             if(data.version > VERSION){
+                LOG("Update available! Sending a notification");
                 requiresUpdate();
             }
         }
     }).catch((e) => console.warn('Error!', e));
+}
+
+function LOG(log){
+    console.log("R/PLACESTART " + VERSION + " | " + log);
 }
 
 function requiresUpdate(){
