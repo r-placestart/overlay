@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         r/placestart logo template
 // @namespace    https://github.com/portalthree/place-taskbar-bot
-// @version      2
+// @version      1
 // @description  r/placestart logo template
 // @author       portalthree
 // @match        https://hot-potato.reddit.com/embed*
@@ -19,22 +19,24 @@
 
 // credit to the osu! logo script
 
+const VERSION = "1";
 
 const updateURL = "https://github.com/portalthree/place-taskbar-bot/raw/main/overlay.user.js";
-
-const VERSION = "3";
-
 const imageLink = "https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/!dotted_overlay.png";
+const versionLink = "https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/version.json";
 
-var NEEDS_UPDATE = false;
+var NOTIFIED = false;
+
+var SECOND = 1000;
+var MINUTE = 60 * SECOND;
 
 (async function () {
 
     GM_addStyle(GM_getResourceText('TOASTIFY_CSS'));
-    Toast("Thanks for contributing to r/placestart!", 10000)
+    Toast("Thanks for contributing to r/placestart!", SECOND * 10)
     Toastify({
         text: `Join our discord! https://discord.gg/sGCpCsjA45`,
-        duration: -1,
+        duration: SECOND * 10,
         onClick: () => {
             window.location = "https://discord.gg/sGCpCsjA45";
         }
@@ -66,8 +68,47 @@ var NEEDS_UPDATE = false;
         }, false);
     }
 
-   //setInterval(checkForUpdates, 1000);
+   setInterval(checkForUpdates, SECOND * 25);
+   setInterval(refreshPage, MINUTE * 15)
 })();
+
+// Checks for an update every 1 minute
+function checkForUpdates(){
+    console.log("Checking for updates...");
+    fetch(versionLink, { cache: "no-store" }).then(async (response) => {
+        const data = await response.json();
+
+        if(!response.ok){
+            return console.error("Failed to fetch version.json: " + response.statusText);
+        } else {
+            console.log("Latest version: " + data.version)
+            if(data.version > VERSION){
+                requiresUpdate();
+            }
+        }
+    }).catch((e) => console.warn('Error!', e));
+}
+
+// function that lets the user know that it needs an update
+function requiresUpdate(){
+    var toastUpdate = Toastify({
+        text: "Update available! Click here to update!",
+        duration: -1,
+        onClick: () => {
+            window.location = updateURL;
+        }
+    })
+
+    if(!NOTIFIED){
+        toastUpdate.showToast();
+        NOTIFIED = true;
+    }
+}
+
+// Refreshs page every 5 minutes
+function refreshPage(){
+    location.reload()
+}
 
 function Toast(text, duration) {
     console.log("Got a Toastify job: " + text);
@@ -77,28 +118,3 @@ function Toast(text, duration) {
         duration: duration
     }).showToast();
 }
-
-/*
-function checkForUpdates(){
-    console.log("Checking for updates...");
-    fetch(`https://raw.githubusercontent.com/portalthree/place-taskbar-bot/main/version.json`, { cache: "no-store" }).then(async (response) => {
-        if (!response.ok) return console.warn('Failed to fetch version.json');
-        const data = await response.json();
-
-        if (data?.version !== VERSION && NEEDS_UPDATE) {
-            NEEDS_UPDATE = true;
-            Toastify({
-                text: `NEW VERSION AVAILABLE! Update here: https://github.com/portalthree/place-taskbar-bot`,
-                duration: -1,
-                onClick: () => {
-                    window.location = updateURL;
-                }
-            }).showToast();
-
-        } else {
-            NEEDS_UPDATE = false;
-            console.log("No update found!");
-        }
-    }).catch((e) => console.warn('Error!', e));
-}
-*/
